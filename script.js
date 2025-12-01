@@ -108,6 +108,28 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // --- FAQ Accordion ---
+    const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+    accordionHeaders.forEach(header => {
+        header.addEventListener('click', () => {
+            const body = header.nextElementSibling;
+            const isActive = header.classList.contains('active');
+            
+            // Close all open items
+            document.querySelectorAll('.accordion-header').forEach(h => {
+                h.classList.remove('active');
+                h.nextElementSibling.style.maxHeight = null;
+            });
+
+            // If clicked item wasn't active, open it
+            if (!isActive) {
+                header.classList.add('active');
+                body.style.maxHeight = body.scrollHeight + "px";
+            }
+        });
+    });
+
     // --- Payment Modal Logic ---
     const modal = document.getElementById('paymentModal');
     const closeBtn = document.querySelector('.close-modal');
