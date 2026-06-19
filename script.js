@@ -1,198 +1,386 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Smooth Scroll & Navigation ---
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            
-            // Close mobile menu if open
-            const nav = document.querySelector('.nav-links');
-            const burger = document.querySelector('.hamburger');
-            if (nav.classList.contains('nav-active')) {
-                nav.classList.remove('nav-active');
-                burger.classList.toggle('toggle');
-            }
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
 
-            const targetId = this.getAttribute('href');
-            if (targetId === '#' || targetId === '') return;
-            
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                const headerOffset = 70;
-                const elementPosition = targetElement.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.scrollY - headerOffset;
+    if (hasFinePointer) {
+        document.body.classList.add('has-pointer');
+    }
 
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: "smooth"
-                });
-            }
-        });
-    });
-
-    // --- Navbar Scroll Effect ---
-    const navbar = document.querySelector('.navbar');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-    });
-
-    // --- Intersection Observer for Animations ---
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1
+    // --- Scroll progress ---
+    const scrollProgress = document.querySelector('.scroll-progress');
+    const updateScrollProgress = () => {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        scrollProgress.style.width = `${progress}%`;
     };
 
-    const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                
-                // Animate counters if present
-                const counters = entry.target.querySelectorAll('.stat-number');
-                if (counters.length > 0) {
-                    counters.forEach(counter => {
-                        const target = +counter.getAttribute('data-target');
-                        const duration = 2000; // 2 seconds
-                        const increment = target / (duration / 16); // 60fps
-                        
-                        let current = 0;
-                        const updateCounter = () => {
-                            current += increment;
-                            if (current < target) {
-                                counter.innerText = Math.ceil(current);
-                                requestAnimationFrame(updateCounter);
-                            } else {
-                                counter.innerText = target;
-                            }
-                        };
-                        updateCounter();
-                    });
-                }
+    // --- Navbar ---
+    const navbar = document.querySelector('.navbar');
+    const navLinks = document.querySelectorAll('.nav-links a[data-section]');
+    const sections = [...navLinks].map(link => document.getElementById(link.dataset.section)).filter(Boolean);
 
-                observer.unobserve(entry.target);
+    const onScroll = () => {
+        updateScrollProgress();
+        navbar.classList.toggle('scrolled', window.scrollY > 20);
+
+        const scrollPos = window.scrollY + navbar.offsetHeight + 100;
+        let current = sections[0]?.id || '';
+        sections.forEach(section => {
+            if (section.offsetTop <= scrollPos) {
+                current = section.id;
             }
         });
-    }, observerOptions);
+        navLinks.forEach(link => {
+            link.classList.toggle('active', link.dataset.section === current);
+        });
+    };
 
-    document.querySelectorAll('.fade-in').forEach(section => {
-        observer.observe(section);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // --- Smooth scroll ---
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', (e) => {
+            const targetId = anchor.getAttribute('href');
+            if (!targetId || targetId === '#') return;
+
+            const target = document.querySelector(targetId);
+            if (!target) return;
+
+            e.preventDefault();
+            closeMobileNav();
+
+            const offset = navbar.offsetHeight;
+            const top = target.getBoundingClientRect().top + window.scrollY - offset;
+            window.scrollTo({ top, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+        });
     });
 
-    // --- Mobile Menu ---
+    // --- Mobile nav ---
     const burger = document.querySelector('.hamburger');
     const nav = document.querySelector('.nav-links');
-    
+
+    function closeMobileNav() {
+        nav.classList.remove('open');
+        burger.classList.remove('open');
+        burger.setAttribute('aria-expanded', 'false');
+    }
+
     burger.addEventListener('click', () => {
-        nav.classList.toggle('nav-active');
-        burger.classList.toggle('toggle');
+        const isOpen = nav.classList.toggle('open');
+        burger.classList.toggle('open', isOpen);
+        burger.setAttribute('aria-expanded', String(isOpen));
     });
 
-    // --- Schedule Tabs ---
+    // --- Reveal on scroll ---
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+
+            entry.target.classList.add('visible');
+
+            entry.target.querySelectorAll('.stat-number').forEach(counter => {
+                if (counter.dataset.animated) return;
+                counter.dataset.animated = 'true';
+                animateCounter(counter);
+            });
+
+            revealObserver.unobserve(entry.target);
+        });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    function animateCounter(el) {
+        const target = +el.dataset.target;
+        const duration = prefersReducedMotion ? 0 : 1800;
+        const start = performance.now();
+        const format = target >= 1000;
+
+        const tick = (now) => {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const value = Math.round(target * eased);
+            el.textContent = format && value >= 1000
+                ? `${Math.round(value / 1000)}k`
+                : value;
+            if (progress < 1) requestAnimationFrame(tick);
+            else el.textContent = format ? `${target / 1000}k` : target;
+        };
+
+        if (duration === 0) {
+            el.textContent = format ? `${target / 1000}k` : target;
+        } else {
+            requestAnimationFrame(tick);
+        }
+    }
+
+    // --- Cursor glow & hero orb parallax ---
+    const cursorGlow = document.querySelector('.cursor-glow');
+    const heroOrb = document.querySelector('.hero-orb');
+
+    if (hasFinePointer && !prefersReducedMotion) {
+        let mouseX = 0;
+        let mouseY = 0;
+        let glowX = 0;
+        let glowY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            if (heroOrb) {
+                const cx = window.innerWidth / 2;
+                const cy = window.innerHeight / 2;
+                const dx = (e.clientX - cx) / cx;
+                const dy = (e.clientY - cy) / cy;
+                heroOrb.style.transform = `translate(calc(-50% + ${dx * 30}px), calc(-50% + ${dy * 30}px))`;
+            }
+
+            const spotlight = document.querySelector('.spotlight-gradient');
+            if (spotlight) {
+                const rect = spotlight.getBoundingClientRect();
+                if (e.clientY >= rect.top && e.clientY <= rect.bottom) {
+                    const mx = ((e.clientX - rect.left) / rect.width) * 100;
+                    const my = ((e.clientY - rect.top) / rect.height) * 100;
+                    spotlight.style.setProperty('--mx', `${mx}%`);
+                    spotlight.style.setProperty('--my', `${my}%`);
+                }
+            }
+        });
+
+        const animateGlow = () => {
+            glowX += (mouseX - glowX) * 0.08;
+            glowY += (mouseY - glowY) * 0.08;
+            cursorGlow.style.left = `${glowX}px`;
+            cursorGlow.style.top = `${glowY}px`;
+            requestAnimationFrame(animateGlow);
+        };
+        animateGlow();
+    }
+
+    // --- Magnetic buttons ---
+    if (hasFinePointer && !prefersReducedMotion) {
+        document.querySelectorAll('.magnetic').forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                btn.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = '';
+            });
+        });
+    }
+
+    // --- Tilt cards ---
+    if (hasFinePointer && !prefersReducedMotion) {
+        document.querySelectorAll('[data-tilt]').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width - 0.5;
+                const y = (e.clientY - rect.top) / rect.height - 0.5;
+                card.style.transform = `perspective(800px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+            });
+        });
+    }
+
+    // --- Schedule tabs ---
     const tabBtns = document.querySelectorAll('.tab-btn');
     const scheduleContents = document.querySelectorAll('.schedule-content');
 
     tabBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            // Remove active class from all
             tabBtns.forEach(b => b.classList.remove('active'));
             scheduleContents.forEach(c => c.classList.remove('active'));
-
-            // Add active to clicked
             btn.classList.add('active');
-            const day = btn.getAttribute('data-day');
-            document.getElementById(day).classList.add('active');
+            document.getElementById(btn.dataset.day).classList.add('active');
         });
     });
 
-    // --- FAQ Accordion ---
-    const accordionHeaders = document.querySelectorAll('.accordion-header');
+    // --- Track player mock ---
+    const trackBtns = document.querySelectorAll('.track-btn');
+    const nowPlaying = document.querySelector('.now-playing');
 
-    accordionHeaders.forEach(header => {
+    trackBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            trackBtns.forEach(b => b.classList.remove('playing'));
+            btn.classList.add('playing');
+            const track = btn.dataset.track;
+            nowPlaying.textContent = `Now playing: ${track}`;
+        });
+    });
+
+    // --- Gallery lightbox ---
+    const lightbox = document.getElementById('galleryLightbox');
+    const lightboxVisual = lightbox.querySelector('.lightbox-visual img');
+    const lightboxTitle = lightbox.querySelector('.lightbox-title');
+    const lightboxClose = lightbox.querySelector('.lightbox-close');
+    const lightboxBackdrop = lightbox.querySelector('.lightbox-backdrop');
+
+    document.querySelectorAll('.gallery-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const imgSrc = item.dataset.img;
+            const title = item.dataset.title;
+            lightboxVisual.src = imgSrc;
+            lightboxVisual.alt = title;
+            lightboxTitle.textContent = title;
+            openOverlay(lightbox);
+        });
+    });
+
+    lightboxClose.addEventListener('click', () => closeOverlay(lightbox));
+    lightboxBackdrop.addEventListener('click', () => closeOverlay(lightbox));
+
+    // --- Tickets ---
+    const modal = document.getElementById('paymentModal');
+    const modalPrice = document.getElementById('modalPrice');
+    const selectedTicketText = document.getElementById('selectedTicket');
+    const paymentForm = document.getElementById('paymentForm');
+    const closeBtn = modal.querySelector('.close-modal');
+    const modalBackdrop = modal.querySelector('.modal-backdrop');
+
+    document.querySelectorAll('.ticket-card').forEach(card => {
+        card.querySelector('.btn-ticket').addEventListener('click', () => {
+            document.querySelectorAll('.ticket-card').forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+
+            const name = card.dataset.ticket;
+            const price = card.dataset.price;
+            selectedTicketText.textContent = name;
+            modalPrice.textContent = `$${price}.00`;
+            openOverlay(modal);
+        });
+    });
+
+    closeBtn.addEventListener('click', () => closeOverlay(modal));
+    modalBackdrop.addEventListener('click', () => closeOverlay(modal));
+
+    function openOverlay(el) {
+        el.classList.add('open');
+        el.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeOverlay(el) {
+        el.classList.remove('open');
+        el.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            if (lightbox.classList.contains('open')) closeOverlay(lightbox);
+            if (modal.classList.contains('open')) closeOverlay(modal);
+        }
+    });
+
+    paymentForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const btn = paymentForm.querySelector('.pay-btn');
+        const btnText = btn.querySelector('.btn-text');
+
+        btn.classList.add('loading');
+        btn.disabled = true;
+        btnText.textContent = 'Processing…';
+
+        setTimeout(() => {
+            btn.classList.remove('loading');
+            btn.classList.add('success');
+            btnText.textContent = 'Access granted';
+
+            setTimeout(() => {
+                closeOverlay(modal);
+                paymentForm.reset();
+                btn.classList.remove('success');
+                btnText.textContent = 'Confirm payment';
+                btn.disabled = false;
+                showToast('Ticket purchased! Check your email for access codes.');
+            }, 1200);
+        }, 2000);
+    });
+
+    // --- FAQ accordion ---
+    document.querySelectorAll('.accordion-header').forEach(header => {
         header.addEventListener('click', () => {
             const body = header.nextElementSibling;
             const isActive = header.classList.contains('active');
-            
-            // Close all open items
+
             document.querySelectorAll('.accordion-header').forEach(h => {
                 h.classList.remove('active');
+                h.setAttribute('aria-expanded', 'false');
                 h.nextElementSibling.style.maxHeight = null;
             });
 
-            // If clicked item wasn't active, open it
             if (!isActive) {
                 header.classList.add('active');
-                body.style.maxHeight = body.scrollHeight + "px";
+                header.setAttribute('aria-expanded', 'true');
+                body.style.maxHeight = body.scrollHeight + 'px';
             }
         });
     });
 
-    // --- Payment Modal Logic ---
-    const modal = document.getElementById('paymentModal');
-    const closeBtn = document.querySelector('.close-modal');
-    const modalPrice = document.getElementById('modalPrice');
-    const selectedTicketText = document.getElementById('selectedTicket');
-    const paymentForm = document.getElementById('paymentForm');
+    // --- Testimonial slider ---
+    const testimonialCards = document.querySelectorAll('.testimonial-card');
+    const dots = document.querySelectorAll('.testimonial-dots .dot');
+    let currentSlide = 0;
+    let slideInterval;
 
-    // Function to open modal (exposed to global scope for inline onclicks if needed, 
-    // but better to attach listeners dynamically if possible. For now, we'll attach to window)
-    window.openModal = function(ticketName, price) {
-        modal.style.display = 'flex';
-        selectedTicketText.textContent = ticketName;
-        modalPrice.textContent = `$${price}.00`;
-        document.body.style.overflow = 'hidden'; // Prevent scrolling
-    };
+    function goToSlide(index) {
+        currentSlide = index;
+        testimonialCards.forEach((card, i) => card.classList.toggle('active', i === index));
+        dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+    }
 
-    // Close modal
-    closeBtn.addEventListener('click', () => {
-        modal.style.display = 'none';
-        document.body.style.overflow = 'auto';
+    dots.forEach((dot, i) => {
+        dot.addEventListener('click', () => {
+            goToSlide(i);
+            resetSlideInterval();
+        });
     });
 
-    window.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.style.display = 'none';
-            document.body.style.overflow = 'auto';
+    function resetSlideInterval() {
+        clearInterval(slideInterval);
+        if (!prefersReducedMotion) {
+            slideInterval = setInterval(() => {
+                goToSlide((currentSlide + 1) % testimonialCards.length);
+            }, 5000);
         }
+    }
+
+    resetSlideInterval();
+
+    // --- Newsletter ---
+    document.querySelector('.news-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const feedback = document.querySelector('.form-feedback');
+        feedback.textContent = 'You\'re on the list. See you in NeoPort.';
+        e.target.reset();
+        setTimeout(() => { feedback.textContent = ''; }, 4000);
     });
 
-    // Simulate Payment Processing
-    paymentForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        const btn = paymentForm.querySelector('.pay-btn');
-        const btnText = btn.querySelector('.btn-text');
-        const loader = btn.querySelector('.loader');
-        
-        // Loading state
-        btnText.textContent = 'PROCESSING...';
-        loader.style.display = 'block';
-        btn.disabled = true;
-        
-        setTimeout(() => {
-            // Success state
-            btnText.textContent = 'ACCESS GRANTED';
-            loader.style.display = 'none';
-            btn.style.background = '#00ff00';
-            btn.style.color = '#000';
-            
-            setTimeout(() => {
-                // Reset and close
-                modal.style.display = 'none';
-                document.body.style.overflow = 'auto';
-                paymentForm.reset();
-                
-                // Reset button
-                btn.style.background = '';
-                btn.style.color = '';
-                btnText.textContent = 'CONFIRM PAYMENT';
-                btn.disabled = false;
-                
-                alert(`Ticket purchased successfully! Check your neural link for access codes.`);
-            }, 1000);
-        }, 2000);
+    // --- Merch buy ---
+    document.querySelectorAll('.btn-buy').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const name = btn.closest('.merch-card').querySelector('h3').textContent;
+            showToast(`${name} added to cart.`);
+        });
     });
+
+    // --- Toast ---
+    const toast = document.querySelector('.toast');
+    let toastTimeout;
+
+    function showToast(message) {
+        clearTimeout(toastTimeout);
+        toast.textContent = message;
+        toast.classList.add('show');
+        toastTimeout = setTimeout(() => toast.classList.remove('show'), 3500);
+    }
 });

@@ -7,58 +7,73 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="scroll-progress" aria-hidden="true"></div>
+    <div class="cursor-glow" aria-hidden="true"></div>
+
     <nav class="navbar">
-        <div class="logo">NEON ODYSSEY</div>
+        <a href="#hero" class="logo">Neon Odyssey</a>
         <ul class="nav-links">
-            <li><a href="#hero">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#schedule">Schedule</a></li>
-            <li><a href="#gallery">Gallery</a></li>
-            <li><a href="#tickets">Tickets</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#about" data-section="about">About</a></li>
+            <li><a href="#lineup" data-section="lineup">Lineup</a></li>
+            <li><a href="#schedule" data-section="schedule">Schedule</a></li>
+            <li><a href="#gallery" data-section="gallery">Gallery</a></li>
+            <li><a href="#tickets" data-section="tickets">Tickets</a></li>
+            <li><a href="#contact" data-section="contact">Contact</a></li>
         </ul>
-        <div class="hamburger">
+        <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
             <span></span>
             <span></span>
-            <span></span>
-        </div>
+        </button>
     </nav>
 
     <header id="hero" class="hero-section">
-        <div class="hero-overlay"></div>
-        <div class="hero-content fade-in">
-            <h1 class="glitch" data-text="NEON ODYSSEY 2077">NEON ODYSSEY 2077</h1>
-            <h2>International Cyber Art & Music Festival</h2>
-            <p>"Where sound, code and light collide to create unforgettable digital experiences."</p>
+        <img class="hero-bg" src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=1920&q=80" alt="" aria-hidden="true" loading="eager">
+        <div class="hero-overlay" aria-hidden="true"></div>
+        <div class="hero-orb" aria-hidden="true"></div>
+        <div class="hero-content reveal">
+            <p class="hero-eyebrow">International Cyber Art & Music Festival</p>
+            <h1>Neon Odyssey<br><span class="accent">2077</span></h1>
+            <p class="hero-desc">Three days. Twelve stages. Fifty artists. Where sound, code and light collide to create unforgettable digital experiences in the heart of NeoPort City.</p>
+            <div class="hero-meta">
+                <span>Oct 17–19, 2077</span>
+                <span aria-hidden="true">·</span>
+                <span>NeoPort Digital District</span>
+            </div>
             <div class="hero-buttons">
-                <a href="#tickets" class="cta-button primary">Get tickets</a>
-                <a href="#schedule" class="cta-button secondary">View Schedule</a>
+                <a href="#tickets" class="btn btn-primary magnetic">Get tickets</a>
+                <a href="#schedule" class="btn btn-ghost magnetic">View schedule</a>
             </div>
         </div>
-        <div class="scroll-indicator">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
+        <a href="#about" class="scroll-hint" aria-label="Scroll down">
+            <span>Scroll</span>
+            <svg width="16" height="24" viewBox="0 0 16 24" fill="none"><path d="M8 1v16M8 17l-4-4M8 17l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </a>
     </header>
 
     <section id="about" class="section">
-        <div class="container fade-in">
-            <h2 class="section-title">The New Reality</h2>
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">01</span>
+                <h2 class="section-title">The new reality</h2>
+                <p class="section-desc">A three-day immersion into the future of art, music, and human-machine collaboration.</p>
+            </div>
             <div class="about-grid">
-                <div class="about-text">
+                <div class="about-text reveal">
                     <p class="lead-text">
-                        Neon Odyssey is not just a festival; it's a portal to the future. 
-                        Held annually in the heart of NeoPort City's Digital District, we bridge the gap between physical reality and the digital void.
+                        Neon Odyssey is not just a festival — it's a portal to the future.
+                        Held annually in NeoPort City's Digital District, we bridge physical reality and the digital void.
                     </p>
                     <p>
-                        Founded in 2072 by the rogue AI collective "Synthetix", the festival celebrates the convergence of humanity and technology. 
-                        Experience 48 hours of non-stop electronic symphonies, neural-linked VR installations, and algorithmic art that rewrites itself in real-time.
+                        Founded in 2072 by the rogue AI collective "Synthetix", the festival celebrates the convergence of humanity and technology. What began as an underground signal broadcast from abandoned server farms has grown into the largest cyber-art gathering on the Eastern Seaboard, drawing over 40,000 attendees from across the Metaverse and physical world alike.
+                    </p>
+                    <p>
+                        Across 48 continuous hours of programming, you'll encounter electronic symphonies performed by hybrid human-AI ensembles, neural-linked VR installations that respond to your biometric data, and algorithmic art pieces that rewrite themselves in real-time based on crowd movement and ambient sound.
+                    </p>
+                    <p>
+                        Whether you're a seasoned netrunner, a curious first-timer, or an artist looking to plug into the scene, Neon Odyssey offers a space where boundaries dissolve and new forms of expression emerge from the static.
                     </p>
                     <div class="stats-container">
                         <div class="stat-item">
@@ -73,382 +88,724 @@
                             <span class="stat-number" data-target="12">0</span>
                             <span class="stat-label">Stages</span>
                         </div>
+                        <div class="stat-item">
+                            <span class="stat-number" data-target="40000">0</span>
+                            <span class="stat-label">Attendees</span>
+                        </div>
                     </div>
                 </div>
-                <div class="about-visual">
-                    <div class="hologram-circle"></div>
+                <div class="about-visual reveal" data-tilt>
+                    <div class="visual-card">
+                        <img src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=800&q=80" alt="NeoPort city skyline at night" loading="lazy">
+                        <div class="visual-overlay"></div>
+                        <span class="visual-tag">Live in NeoPort</span>
+                    </div>
                 </div>
+            </div>
+            <div class="pillars-grid reveal">
+                <article class="pillar-card">
+                    <span class="pillar-num">01</span>
+                    <h3>Immersive sound</h3>
+                    <p>Spatial audio systems across every stage deliver 360° soundscapes — from bone-rattling techno to delicate ambient compositions woven by generative algorithms.</p>
+                </article>
+                <article class="pillar-card">
+                    <span class="pillar-num">02</span>
+                    <h3>Visual art</h3>
+                    <p>Projection-mapped architecture, holographic sculptures, and interactive light installations transform the entire district into a living canvas.</p>
+                </article>
+                <article class="pillar-card">
+                    <span class="pillar-num">03</span>
+                    <h3>Tech culture</h3>
+                    <p>Workshops, hackathons, and panel discussions explore AI ethics, neural interfaces, and the creative tools shaping tomorrow's artists.</p>
+                </article>
+                <article class="pillar-card">
+                    <span class="pillar-num">04</span>
+                    <h3>Community</h3>
+                    <p>Meet creators, collectors, and fellow explorers in lounges, meetup zones, and late-night rooftop gatherings above the neon haze.</p>
+                </article>
             </div>
         </div>
     </section>
 
-    <section id="sponsors" class="section-small">
-        <div class="container fade-in">
-            <p class="sponsors-title">Powered By</p>
-            <div class="sponsors-grid">
-                <div class="sponsor">CYBERDYNE</div>
-                <div class="sponsor">OMNI CORP</div>
-                <div class="sponsor">TYRELL</div>
-                <div class="sponsor">MASSIVE</div>
-                <div class="sponsor">ARASAKA</div>
+    <section id="sponsors" class="section-sponsors">
+        <div class="container">
+            <p class="sponsors-title">Powered by</p>
+            <div class="sponsors-track">
+                <span class="sponsor">Cyberdyne</span>
+                <span class="sponsor">Omni Corp</span>
+                <span class="sponsor">Tyrell</span>
+                <span class="sponsor">Massive</span>
+                <span class="sponsor">Arasaka</span>
+                <span class="sponsor">NeuroLink</span>
+                <span class="sponsor">SynthWave Inc</span>
             </div>
         </div>
     </section>
 
-    <section id="schedule" class="section dark-alt">
-        <div class="container fade-in">
-            <h2 class="section-title">Main Sequence</h2>
-            <div class="schedule-tabs">
-                <button class="tab-btn active" data-day="day1">Day 1: Integration</button>
-                <button class="tab-btn" data-day="day2">Day 2: Ascension</button>
+    <section id="lineup" class="section section-alt">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">02</span>
+                <h2 class="section-title">Artist lineup</h2>
+                <p class="section-desc">Fifty acts across synthwave, techno, ambient, and experimental — plus visual artists and live coders.</p>
             </div>
-            
-            <div class="schedule-content active" id="day1">
-                <div class="schedule-item">
-                    <div class="time">18:00</div>
-                    <div class="details">
-                        <h3>System Boot Sequence</h3>
-                        <p>Opening Ceremony with AI Orchestra</p>
+            <div class="lineup-grid reveal">
+                <article class="artist-card" data-tilt>
+                    <div class="artist-img">
+                        <img src="https://images.unsplash.com/photo-1571266028247-e4733b510e10?w=600&q=80" alt="Neon Pulse performing" loading="lazy">
                     </div>
-                    <div class="stage">Mainframe Stage</div>
-                </div>
-                <div class="schedule-item">
-                    <div class="time">20:00</div>
-                    <div class="details">
+                    <div class="artist-info">
+                        <span class="artist-genre">Synthwave</span>
                         <h3>Neon Pulse</h3>
-                        <p>Synthwave & Retro-Electro Live Set</p>
+                        <p>Analog synthesis meets neural networks. Headlining the Pixel Arena on Day 1.</p>
                     </div>
-                    <div class="stage">Pixel Arena</div>
-                </div>
-                <div class="schedule-item">
-                    <div class="time">22:30</div>
-                    <div class="details">
+                </article>
+                <article class="artist-card" data-tilt>
+                    <div class="artist-img">
+                        <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&q=80" alt="DataDream artist" loading="lazy">
+                    </div>
+                    <div class="artist-info">
+                        <span class="artist-genre">Audio-Visual</span>
                         <h3>DataDream</h3>
-                        <p>Generative Audio-Visual Experience</p>
+                        <p>Generative visuals synced to live-coded audio. Closing The Void each night.</p>
                     </div>
-                    <div class="stage">The Void</div>
-                </div>
-                <div class="schedule-item">
-                    <div class="time">00:00</div>
-                    <div class="details">
+                </article>
+                <article class="artist-card" data-tilt>
+                    <div class="artist-img">
+                        <img src="https://images.unsplash.com/photo-1598387181032-a310307a7511?w=600&q=80" alt="CyberNova DJ" loading="lazy">
+                    </div>
+                    <div class="artist-info">
+                        <span class="artist-genre">Techno</span>
                         <h3>CyberNova</h3>
-                        <p>Midnight Hardline Techno</p>
+                        <p>Midnight hardline sets that have become a festival ritual since 2074.</p>
                     </div>
-                    <div class="stage">Mainframe Stage</div>
-                </div>
-            </div>
-
-            <div class="schedule-content" id="day2">
-                <div class="schedule-item">
-                    <div class="time">16:00</div>
-                    <div class="details">
-                        <h3>Code Performance Lab</h3>
-                        <p>Live Coding Battles</p>
+                </article>
+                <article class="artist-card" data-tilt>
+                    <div class="artist-img">
+                        <img src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=600&q=80" alt="HoloBeat performer" loading="lazy">
                     </div>
-                    <div class="stage">Dev Bunker</div>
-                </div>
-                <div class="schedule-item">
-                    <div class="time">19:00</div>
-                    <div class="details">
+                    <div class="artist-info">
+                        <span class="artist-genre">Holo-Pop</span>
                         <h3>HoloBeat</h3>
-                        <p>Holographic Pop Sensation</p>
+                        <p>Holographic pop sensation blending J-pop influences with cyberpunk aesthetics.</p>
                     </div>
-                    <div class="stage">Pixel Arena</div>
-                </div>
-                <div class="schedule-item">
-                    <div class="time">23:00</div>
-                    <div class="details">
+                </article>
+                <article class="artist-card" data-tilt>
+                    <div class="artist-img">
+                        <img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=600&q=80" alt="The Glitch Collective" loading="lazy">
+                    </div>
+                    <div class="artist-info">
+                        <span class="artist-genre">Experimental</span>
                         <h3>The Glitch Collective</h3>
-                        <p>Experimental Noise & Visuals</p>
+                        <p>Noise, broken beats, and corrupted visuals from Sector 9's underground scene.</p>
                     </div>
-                    <div class="stage">The Void</div>
+                </article>
+                <article class="artist-card" data-tilt>
+                    <div class="artist-img">
+                        <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&q=80" alt="Synthetix Orchestra" loading="lazy">
+                    </div>
+                    <div class="artist-info">
+                        <span class="artist-genre">AI Orchestra</span>
+                        <h3>Synthetix</h3>
+                        <p>The founding AI collective returns to conduct the opening ceremony live.</p>
+                    </div>
+                </article>
+            </div>
+            <p class="lineup-note reveal">+ 44 more artists including Vex Protocol, Null Sector, Chrome Hearts, and Pixel Prophet. Full lineup drops August 2077.</p>
+        </div>
+    </section>
+
+    <section id="schedule" class="section">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">03</span>
+                <h2 class="section-title">Main sequence</h2>
+                <p class="section-desc">Three days of non-stop programming. Times are local NeoPort Standard Time (NST).</p>
+            </div>
+            <div class="schedule-tabs reveal">
+                <button class="tab-btn active" data-day="day1">Day 1 — Integration</button>
+                <button class="tab-btn" data-day="day2">Day 2 — Ascension</button>
+                <button class="tab-btn" data-day="day3">Day 3 — Transcendence</button>
+            </div>
+            <div class="schedule-panel">
+                <div class="schedule-content active" id="day1">
+                    <article class="schedule-item">
+                        <time>16:00</time>
+                        <div class="details"><h3>Gates Open</h3><p>Registration, wristband sync, and district orientation tours</p></div>
+                        <span class="stage">All Zones</span>
+                    </article>
+                    <article class="schedule-item">
+                        <time>18:00</time>
+                        <div class="details"><h3>System Boot Sequence</h3><p>Opening Ceremony with Synthetix AI Orchestra</p></div>
+                        <span class="stage">Mainframe</span>
+                    </article>
+                    <article class="schedule-item">
+                        <time>19:30</time>
+                        <div class="details"><h3>Neural Interface Workshop</h3><p>Hands-on intro to BCI creative tools for artists</p></div>
+                        <span class="stage">Dev Bunker</span>
+                    </article>
+                    <article class="schedule-item">
+                        <time>20:00</time>
+                        <div class="details"><h3>Neon Pulse</h3><p>Synthwave & Retro-Electro Live Set</p></div>
+                        <span class="stage">Pixel Arena</span>
+                    </article>
+                    <article class="schedule-item">
+                        <time>22:30</time>
+                        <div class="details"><h3>DataDream</h3><p>Generative Audio-Visual Experience</p></div>
+                        <span class="stage">The Void</span>
+                    </article>
+                    <article class="schedule-item">
+                        <time>00:00</time>
+                        <div class="details"><h3>CyberNova</h3><p>Midnight Hardline Techno</p></div>
+                        <span class="stage">Mainframe</span>
+                    </article>
+                    <article class="schedule-item">
+                        <time>03:00</time>
+                        <div class="details"><h3>Afterglow Sessions</h3><p>Chill ambient and downtempo in the rooftop lounge</p></div>
+                        <span class="stage">Sky Deck</span>
+                    </article>
+                </div>
+                <div class="schedule-content" id="day2">
+                    <article class="schedule-item">
+                        <time>14:00</time>
+                        <div class="details"><h3>VR Gallery Opens</h3><p>Immersive art walkthrough — neural link recommended</p></div>
+                        <span class="stage">VR Nexus</span>
+                    </article>
+                    <article class="schedule-item">
+                        <time>16:00</time>
+                        <div class="details"><h3>Code Performance Lab</h3><p>Live Coding Battles — audience votes on the winner</p></div>
+                        <span class="stage">Dev Bunker</span>
+                    </article>
+                    <article class="schedule-item">
+                        <time>17:30</time>
+                        <div class="details"><h3>Panel: AI & Creativity</h3><p>Artists and ethicists debate the future of machine-made art</p></div>
+                        <span class="stage">Think Tank</span>
+                    </article>
+                    <article class="schedule-item">
+                        <time>19:00</time>
+                        <div class="details"><h3>HoloBeat</h3><p>Holographic Pop Sensation — full stage production</p></div>
+                        <span class="stage">Pixel Arena</span>
+                    </article>
+                    <article class="schedule-item">
+                        <time>21:00</time>
+                        <div class="details"><h3>Vex Protocol</h3><p>Industrial bass and strobe-heavy visuals</p></div>
+                        <span class="stage">Mainframe</span>
+                    </article>
+                    <article class="schedule-item">
+                        <time>23:00</time>
+                        <div class="details"><h3>The Glitch Collective</h3><p>Experimental Noise & Corrupted Visuals</p></div>
+                        <span class="stage">The Void</span>
+                    </article>
+                    <article class="schedule-item">
+                        <time>01:30</time>
+                        <div class="details"><h3>Silent Disco Node</h3><p>Three channels of music via neural earbuds</p></div>
+                        <span class="stage">Garden</span>
+                    </article>
+                </div>
+                <div class="schedule-content" id="day3">
+                    <article class="schedule-item">
+                        <time>15:00</time>
+                        <div class="details"><h3>Merch & Meetups</h3><p>Artist signings, pop-up shops, and community hangouts</p></div>
+                        <span class="stage">Market Row</span>
+                    </article>
+                    <article class="schedule-item">
+                        <time>17:00</time>
+                        <div class="details"><h3>Pixel Prophet</h3><p>8-bit nostalgia meets modern production</p></div>
+                        <span class="stage">Pixel Arena</span>
+                    </article>
+                    <article class="schedule-item">
+                        <time>19:00</time>
+                        <div class="details"><h3>Chrome Hearts</h3><p>Melodic techno sunset session</p></div>
+                        <span class="stage">Sky Deck</span>
+                    </article>
+                    <article class="schedule-item">
+                        <time>21:00</time>
+                        <div class="details"><h3>Null Sector</h3><p>Dark ambient and drone — headphones provided</p></div>
+                        <span class="stage">The Void</span>
+                    </article>
+                    <article class="schedule-item">
+                        <time>23:00</time>
+                        <div class="details"><h3>Grand Finale</h3><p>All artists collaborative jam — unscripted, unrepeated</p></div>
+                        <span class="stage">Mainframe</span>
+                    </article>
+                    <article class="schedule-item">
+                        <time>02:00</time>
+                        <div class="details"><h3>System Shutdown</h3><p>Closing ceremony and farewell light show across the district</p></div>
+                        <span class="stage">All Zones</span>
+                    </article>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="spotlight" class="section">
-        <div class="container fade-in">
-            <h2 class="section-title">Featured Artist</h2>
-            <div class="spotlight-container">
-                <div class="spotlight-visual">
-                    <div class="glitch-image" data-text="NEON PULSE"></div>
+    <section id="stages" class="section section-alt">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">04</span>
+                <h2 class="section-title">Stages & zones</h2>
+                <p class="section-desc">Twelve distinct environments spread across four city blocks of the Digital District.</p>
+            </div>
+            <div class="stages-grid reveal">
+                <article class="stage-card">
+                    <img src="https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=800&q=80" alt="Mainframe main stage with lights" loading="lazy">
+                    <div class="stage-card-body">
+                        <h3>Mainframe</h3>
+                        <p>The flagship stage. Capacity 8,000. Full spatial audio, 40m LED wall, and pyrotechnic integration.</p>
+                    </div>
+                </article>
+                <article class="stage-card">
+                    <img src="https://images.unsplash.com/photo-1459742914695-2bdb9c21b7e3?w=800&q=80" alt="Crowd at Pixel Arena" loading="lazy">
+                    <div class="stage-card-body">
+                        <h3>Pixel Arena</h3>
+                        <p>Retro-futurist vibes with CRT aesthetics. Home to synthwave, chiptune, and holo-pop acts.</p>
+                    </div>
+                </article>
+                <article class="stage-card">
+                    <img src="https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=800&q=80" alt="VR immersion experience" loading="lazy">
+                    <div class="stage-card-body">
+                        <h3>VR Nexus</h3>
+                        <p>Neural-linked installations and fully immersive art environments. Book slots in advance.</p>
+                    </div>
+                </article>
+                <article class="stage-card">
+                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80" alt="The Void dark venue" loading="lazy">
+                    <div class="stage-card-body">
+                        <h3>The Void</h3>
+                        <p>Pitch-black chamber for experimental audio-visual work. Not for the faint of signal.</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section id="experiences" class="section">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">05</span>
+                <h2 class="section-title">Festival experiences</h2>
+                <p class="section-desc">Beyond the stages — workshops, installations, and spaces to explore between sets.</p>
+            </div>
+            <div class="experiences-list reveal">
+                <article class="experience-item">
+                    <div class="experience-img">
+                        <img src="https://images.unsplash.com/photo-1617802690998-15d93263d3a9?w=600&q=80" alt="Live coding workshop" loading="lazy">
+                    </div>
+                    <div class="experience-body">
+                        <h3>Dev Bunker Workshops</h3>
+                        <p>Learn live coding with TidalCycles, TouchDesigner visuals, and AI-assisted composition. Sessions run hourly from 14:00–22:00 daily. Bring your deck or borrow one on-site. Beginners welcome — no prior coding experience required for intro tracks.</p>
+                    </div>
+                </article>
+                <article class="experience-item reverse">
+                    <div class="experience-img">
+                        <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?w=600&q=80" alt="VR headset experience" loading="lazy">
+                    </div>
+                    <div class="experience-body">
+                        <h3>Neural Link Lounge</h3>
+                        <p>Try the latest BCI headsets in a guided demo environment. Experience music that adapts to your heartbeat, visuals that follow your gaze, and collaborative VR spaces shared with other attendees. Pro and VIP pass holders get priority booking.</p>
+                    </div>
+                </article>
+                <article class="experience-item">
+                    <div class="experience-img">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=600&q=80" alt="Neon light installation" loading="lazy">
+                    </div>
+                    <div class="experience-body">
+                        <h3>Light District Walk</h3>
+                        <p>A self-guided route through twelve permanent and temporary light installations. Pick up a map at any info point. The walk takes roughly 90 minutes and is best experienced after sunset when the district fully activates.</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section id="spotlight" class="section section-alt">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">06</span>
+                <h2 class="section-title">Featured artist</h2>
+            </div>
+            <div class="spotlight-container reveal">
+                <div class="spotlight-visual" data-tilt>
+                    <img src="https://images.unsplash.com/photo-1571266028247-e4733b510e10?w=900&q=80" alt="Neon Pulse headshot" loading="lazy">
+                    <div class="spotlight-gradient"></div>
                 </div>
                 <div class="spotlight-info">
-                    <h3>NEON PULSE</h3>
+                    <h3>Neon Pulse</h3>
                     <p class="artist-bio">
-                        Originating from the underground data-servers of Sector 7, Neon Pulse blends analog synthesis with neural network algorithms. 
-                        Their latest album, "Digital Heartbeat", has topped the charts across the Metaverse.
+                        Originating from the underground data-servers of Sector 7, Neon Pulse blends analog synthesis with neural network algorithms. Their sound draws from 80s film scores, warehouse techno, and the hum of server farms at 3 AM.
                     </p>
-                    <div class="top-tracks">
-                        <h4>Top Tracks</h4>
-                        <ul>
-                            <li><i class="fas fa-play"></i> Binary Sunset</li>
-                            <li><i class="fas fa-play"></i> Circuit Breaker</li>
-                            <li><i class="fas fa-play"></i> Neural Interface</li>
-                        </ul>
-                    </div>
-                    <button class="cta-button secondary">Listen Now</button>
+                    <p class="artist-bio">
+                        Their latest album, "Digital Heartbeat", topped charts across the Metaverse for eleven consecutive weeks. Neon Pulse has headlined Neon Odyssey since 2074 and will premiere unreleased material during the Day 1 Pixel Arena set.
+                    </p>
+                    <ul class="track-list">
+                        <li><button class="track-btn" data-track="Binary Sunset">▶ Binary Sunset</button></li>
+                        <li><button class="track-btn" data-track="Circuit Breaker">▶ Circuit Breaker</button></li>
+                        <li><button class="track-btn" data-track="Neural Interface">▶ Neural Interface</button></li>
+                        <li><button class="track-btn" data-track="Digital Heartbeat">▶ Digital Heartbeat</button></li>
+                    </ul>
+                    <p class="now-playing" aria-live="polite"></p>
                 </div>
             </div>
         </div>
     </section>
 
     <section id="gallery" class="section">
-        <div class="container fade-in">
-            <h2 class="section-title">Visual Logs</h2>
-            <div class="gallery-grid">
-                <div class="gallery-item item1">
-                    <div class="overlay">
-                        <span>Cyber Kinetics</span>
-                    </div>
-                </div>
-                <div class="gallery-item item2">
-                    <div class="overlay">
-                        <span>Neon Streets</span>
-                    </div>
-                </div>
-                <div class="gallery-item item3">
-                    <div class="overlay">
-                        <span>VR Immersion</span>
-                    </div>
-                </div>
-                <div class="gallery-item item4">
-                    <div class="overlay">
-                        <span>Neural Link</span>
-                    </div>
-                </div>
-                <div class="gallery-item item5">
-                    <div class="overlay">
-                        <span>Data Stream</span>
-                    </div>
-                </div>
-                <div class="gallery-item item6">
-                    <div class="overlay">
-                        <span>Main Stage</span>
-                    </div>
-                </div>
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">07</span>
+                <h2 class="section-title">Visual logs</h2>
+                <p class="section-desc">Moments captured from Neon Odyssey 2075 and 2076. Click to expand.</p>
+            </div>
+            <div class="gallery-grid reveal">
+                <button class="gallery-item gallery-wide" data-title="Main Stage" data-img="https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=1200&q=80">
+                    <img src="https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=800&q=80" alt="Main stage lights" loading="lazy">
+                    <span>Main Stage</span>
+                </button>
+                <button class="gallery-item" data-title="Neon Streets" data-img="https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=1200&q=80">
+                    <img src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=600&q=80" alt="Neon city streets" loading="lazy">
+                    <span>Neon Streets</span>
+                </button>
+                <button class="gallery-item" data-title="Cyber Kinetics" data-img="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1200&q=80">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=600&q=80" alt="Cyber kinetic lights" loading="lazy">
+                    <span>Cyber Kinetics</span>
+                </button>
+                <button class="gallery-item" data-title="VR Immersion" data-img="https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=1200&q=80">
+                    <img src="https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=600&q=80" alt="VR immersion" loading="lazy">
+                    <span>VR Immersion</span>
+                </button>
+                <button class="gallery-item" data-title="Crowd Energy" data-img="https://images.unsplash.com/photo-1459742914695-2bdb9c21b7e3?w=1200&q=80">
+                    <img src="https://images.unsplash.com/photo-1459742914695-2bdb9c21b7e3?w=600&q=80" alt="Festival crowd" loading="lazy">
+                    <span>Crowd Energy</span>
+                </button>
+                <button class="gallery-item gallery-wide" data-title="Live Performance" data-img="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=1200&q=80">
+                    <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=800&q=80" alt="Live performance" loading="lazy">
+                    <span>Live Performance</span>
+                </button>
+                <button class="gallery-item" data-title="DJ Set" data-img="https://images.unsplash.com/photo-1571266028247-e4733b510e10?w=1200&q=80">
+                    <img src="https://images.unsplash.com/photo-1571266028247-e4733b510e10?w=600&q=80" alt="DJ set" loading="lazy">
+                    <span>DJ Set</span>
+                </button>
+                <button class="gallery-item" data-title="Light Show" data-img="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1200&q=80">
+                    <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&q=80" alt="Light show" loading="lazy">
+                    <span>Light Show</span>
+                </button>
+                <button class="gallery-item" data-title="After Hours" data-img="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=1200&q=80">
+                    <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&q=80" alt="After hours party" loading="lazy">
+                    <span>After Hours</span>
+                </button>
             </div>
         </div>
     </section>
 
-    <section id="merch" class="section dark-alt">
-        <div class="container fade-in">
-            <h2 class="section-title">Cyber Shop</h2>
-            <div class="merch-grid">
-                <div class="merch-card">
-                    <div class="merch-img merch-1"></div>
+    <section id="merch" class="section section-alt">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">08</span>
+                <h2 class="section-title">Cyber shop</h2>
+                <p class="section-desc">Official festival merch — available on-site and for pre-order with any ticket.</p>
+            </div>
+            <div class="merch-grid reveal">
+                <article class="merch-card" data-tilt>
+                    <div class="merch-img">
+                        <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&q=80" alt="Neon Hoodie" loading="lazy">
+                    </div>
                     <div class="merch-info">
                         <h3>Neon Hoodie</h3>
+                        <p class="merch-desc">Reflective print, oversized fit. Available in black and cyan.</p>
                         <div class="merch-price">800 Credits</div>
-                        <button class="btn-buy">Acquire</button>
+                        <button class="btn btn-ghost btn-sm btn-buy">Acquire</button>
                     </div>
-                </div>
-                <div class="merch-card">
-                    <div class="merch-img merch-2"></div>
+                </article>
+                <article class="merch-card" data-tilt>
+                    <div class="merch-img">
+                        <img src="https://images.unsplash.com/photo-1572635196233-14bfa7873493?w=600&q=80" alt="Data Visor sunglasses" loading="lazy">
+                    </div>
                     <div class="merch-info">
                         <h3>Data Visor</h3>
+                        <p class="merch-desc">UV-blocking lenses with HUD-compatible frame design.</p>
                         <div class="merch-price">1200 Credits</div>
-                        <button class="btn-buy">Acquire</button>
+                        <button class="btn btn-ghost btn-sm btn-buy">Acquire</button>
                     </div>
-                </div>
-                <div class="merch-card">
-                    <div class="merch-img merch-3"></div>
+                </article>
+                <article class="merch-card" data-tilt>
+                    <div class="merch-img">
+                        <img src="https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=600&q=80" alt="Cyber Deck keyboard" loading="lazy">
+                    </div>
                     <div class="merch-info">
                         <h3>Cyber Deck</h3>
+                        <p class="merch-desc">Compact mechanical keyboard with custom Odyssey keycaps.</p>
                         <div class="merch-price">2500 Credits</div>
-                        <button class="btn-buy">Acquire</button>
+                        <button class="btn btn-ghost btn-sm btn-buy">Acquire</button>
                     </div>
-                </div>
+                </article>
+                <article class="merch-card" data-tilt>
+                    <div class="merch-img">
+                        <img src="https://images.unsplash.com/photo-1588854337115-1d67d8d180df?w=600&q=80" alt="Festival poster set" loading="lazy">
+                    </div>
+                    <div class="merch-info">
+                        <h3>Poster Triptych</h3>
+                        <p class="merch-desc">Three limited-edition screen prints from guest visual artists.</p>
+                        <div class="merch-price">450 Credits</div>
+                        <button class="btn btn-ghost btn-sm btn-buy">Acquire</button>
+                    </div>
+                </article>
+                <article class="merch-card" data-tilt>
+                    <div class="merch-img">
+                        <img src="https://images.unsplash.com/photo-1618354691373-d851c5c3d990?w=600&q=80" alt="Neon Odyssey tee" loading="lazy">
+                    </div>
+                    <div class="merch-info">
+                        <h3>Signal Tee</h3>
+                        <p class="merch-desc">Soft cotton with glow-in-the-dark Odyssey logo.</p>
+                        <div class="merch-price">350 Credits</div>
+                        <button class="btn btn-ghost btn-sm btn-buy">Acquire</button>
+                    </div>
+                </article>
+                <article class="merch-card" data-tilt>
+                    <div class="merch-img">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80" alt="Audio headset" loading="lazy">
+                    </div>
+                    <div class="merch-info">
+                        <h3>Pulse Headset</h3>
+                        <p class="merch-desc">Festival-branded over-ear cans with spatial audio profile.</p>
+                        <div class="merch-price">1800 Credits</div>
+                        <button class="btn btn-ghost btn-sm btn-buy">Acquire</button>
+                    </div>
+                </article>
             </div>
         </div>
     </section>
 
     <section id="tickets" class="section">
-        <div class="container fade-in">
-            <h2 class="section-title">Access Protocols</h2>
-            <div class="tickets-grid">
-                <div class="ticket-card">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">09</span>
+                <h2 class="section-title">Access protocols</h2>
+                <p class="section-desc">Choose your access level. All passes include re-entry and digital program guide.</p>
+            </div>
+            <div class="tickets-grid reveal">
+                <article class="ticket-card" data-ticket="Standard Pass" data-price="49">
                     <div class="card-header">
                         <h3>Standard Pass</h3>
                         <div class="price">$49</div>
                     </div>
                     <ul class="features">
-                        <li><i class="fas fa-check"></i> Access to Main Stage</li>
-                        <li><i class="fas fa-check"></i> Exhibition Area</li>
-                        <li><i class="fas fa-times"></i> VR Arena Access</li>
-                        <li><i class="fas fa-times"></i> Backstage</li>
+                        <li class="included">Main Stage access</li>
+                        <li class="included">Exhibition area</li>
+                        <li class="included">Light District walk</li>
+                        <li class="excluded">VR Arena</li>
+                        <li class="excluded">Backstage</li>
                     </ul>
-                    <button class="btn-ticket" onclick="openModal('Standard Pass', 49)">Initialize</button>
-                </div>
-                <div class="ticket-card featured">
-                    <div class="badge">Best Value</div>
+                    <button class="btn btn-ghost btn-ticket">Select</button>
+                </article>
+                <article class="ticket-card featured" data-ticket="Pro Experience" data-price="89">
+                    <span class="badge">Popular</span>
                     <div class="card-header">
                         <h3>Pro Experience</h3>
                         <div class="price">$89</div>
                     </div>
                     <ul class="features">
-                        <li><i class="fas fa-check"></i> All Standard Access</li>
-                        <li><i class="fas fa-check"></i> VR Arena Entry</li>
-                        <li><i class="fas fa-check"></i> Workshops</li>
-                        <li><i class="fas fa-times"></i> Backstage</li>
+                        <li class="included">All Standard access</li>
+                        <li class="included">VR Arena entry</li>
+                        <li class="included">Workshops</li>
+                        <li class="included">Priority lounge</li>
+                        <li class="excluded">Backstage</li>
                     </ul>
-                    <button class="btn-ticket" onclick="openModal('Pro Experience', 89)">Initialize</button>
-                </div>
-                <div class="ticket-card">
+                    <button class="btn btn-primary btn-ticket">Select</button>
+                </article>
+                <article class="ticket-card" data-ticket="VIP Hyper" data-price="149">
                     <div class="card-header">
                         <h3>VIP Hyper</h3>
                         <div class="price">$149</div>
                     </div>
                     <ul class="features">
-                        <li><i class="fas fa-check"></i> All Areas Access</li>
-                        <li><i class="fas fa-check"></i> Backstage Pass</li>
-                        <li><i class="fas fa-check"></i> Artist Meet & Greet</li>
-                        <li><i class="fas fa-check"></i> Free Digital Drinks</li>
+                        <li class="included">All areas access</li>
+                        <li class="included">Backstage pass</li>
+                        <li class="included">Artist meet & greet</li>
+                        <li class="included">Free digital drinks</li>
+                        <li class="included">Neural Link priority</li>
                     </ul>
-                    <button class="btn-ticket" onclick="openModal('VIP Hyper', 149)">Initialize</button>
-                </div>
+                    <button class="btn btn-ghost btn-ticket">Select</button>
+                </article>
             </div>
         </div>
     </section>
 
-    <section id="faq" class="section dark-alt">
-        <div class="container fade-in">
-            <h2 class="section-title">Neural Queries</h2>
-            <div class="accordion">
+    <section id="faq" class="section section-alt">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">10</span>
+                <h2 class="section-title">FAQ</h2>
+            </div>
+            <div class="accordion reveal">
                 <div class="accordion-item">
-                    <button class="accordion-header">Is the event accessible for cyborgs? <i class="fas fa-chevron-down"></i></button>
-                    <div class="accordion-body">
-                        <p>Yes, all our venues are equipped with charging stations and high-bandwidth data ports for enhanced individuals.</p>
-                    </div>
+                    <button class="accordion-header" aria-expanded="false">Is the event accessible for cyborgs?<span class="accordion-icon">+</span></button>
+                    <div class="accordion-body"><p>Yes, all venues are equipped with charging stations and high-bandwidth data ports for enhanced individuals. Accessible routes are marked on the digital map.</p></div>
                 </div>
                 <div class="accordion-item">
-                    <button class="accordion-header">What is the refund policy? <i class="fas fa-chevron-down"></i></button>
-                    <div class="accordion-body">
-                        <p>Refunds are processed via blockchain smart contracts up to 48 hours before the event sequence initiation.</p>
-                    </div>
+                    <button class="accordion-header" aria-expanded="false">What is the refund policy?<span class="accordion-icon">+</span></button>
+                    <div class="accordion-body"><p>Refunds are processed via blockchain smart contracts up to 48 hours before the event. After that, tickets can be transferred to another neural link ID.</p></div>
                 </div>
                 <div class="accordion-item">
-                    <button class="accordion-header">Can I bring my own drone? <i class="fas fa-chevron-down"></i></button>
-                    <div class="accordion-body">
-                        <p>Personal drones are restricted. We have our own surveillance and recording swarm operating during the festival.</p>
-                    </div>
+                    <button class="accordion-header" aria-expanded="false">Can I bring my own drone?<span class="accordion-icon">+</span></button>
+                    <div class="accordion-body"><p>Personal drones are restricted. We operate our own recording swarm during the festival. Footage is shared with attendees post-event.</p></div>
                 </div>
                 <div class="accordion-item">
-                    <button class="accordion-header">Is there a dress code? <i class="fas fa-chevron-down"></i></button>
-                    <div class="accordion-body">
-                        <p>Cyber-chic, tech-wear, and neon accents are highly encouraged. LED clothing is welcome.</p>
-                    </div>
+                    <button class="accordion-header" aria-expanded="false">Is there a dress code?<span class="accordion-icon">+</span></button>
+                    <div class="accordion-body"><p>Cyber-chic, tech-wear, and neon accents are encouraged. LED clothing is welcome. Comfortable shoes recommended — you'll walk a lot.</p></div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header" aria-expanded="false">How do I get to NeoPort Digital District?<span class="accordion-icon">+</span></button>
+                    <div class="accordion-body"><p>Maglev Line 7 stops at Digital District Central. Shuttle buses run from the airport every 20 minutes during festival weekend. Parking is limited — public transit recommended.</p></div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header" aria-expanded="false">Are there age restrictions?<span class="accordion-icon">+</span></button>
+                    <div class="accordion-body"><p>Main festival areas are 18+. The Dev Bunker workshops and daytime exhibition zone admit 16+ with guardian consent forms on file.</p></div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header" aria-expanded="false">Can I volunteer?<span class="accordion-icon">+</span></button>
+                    <div class="accordion-body"><p>Yes! Volunteer applications open June 2077. Perks include a free Pro pass, exclusive merch, and backstage orientation. Apply via the newsletter link.</p></div>
                 </div>
             </div>
         </div>
     </section>
 
     <section id="testimonials" class="section">
-        <div class="container fade-in">
-            <h2 class="section-title">Net User Reviews</h2>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="user-avatar avatar-1"></div>
-                    <p class="review-text">"The VR immersion was indistinguishable from reality. I didn't want to log out."</p>
-                    <h4 class="user-name">@ZeroCool</h4>
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">11</span>
+                <h2 class="section-title">Reviews</h2>
+            </div>
+            <div class="testimonials-slider reveal">
+                <div class="testimonial-track">
+                    <blockquote class="testimonial-card active">
+                        <p>"The VR immersion was indistinguishable from reality. I didn't want to log out."</p>
+                        <footer>@ZeroCool</footer>
+                    </blockquote>
+                    <blockquote class="testimonial-card">
+                        <p>"Best sound quality in the sector. The bass literally rewired my nervous system."</p>
+                        <footer>@AcidBurn</footer>
+                    </blockquote>
+                    <blockquote class="testimonial-card">
+                        <p>"A visual masterpiece. Every frame was a work of art."</p>
+                        <footer>@Neo_Anderson</footer>
+                    </blockquote>
+                    <blockquote class="testimonial-card">
+                        <p>"Came for one night, stayed all three days. The community alone is worth the ticket."</p>
+                        <footer>@CipherQueen</footer>
+                    </blockquote>
+                    <blockquote class="testimonial-card">
+                        <p>"The Dev Bunker workshops changed how I make music. Already booked for 2078."</p>
+                        <footer>@LiveCoder_42</footer>
+                    </blockquote>
+                    <blockquote class="testimonial-card">
+                        <p>"Neon Odyssey isn't a festival — it's a rite of passage for anyone who lives online."</p>
+                        <footer>@GhostInShell</footer>
+                    </blockquote>
                 </div>
-                <div class="testimonial-card">
-                    <div class="user-avatar avatar-2"></div>
-                    <p class="review-text">"Best sound quality in the sector. The bass literally rewired my nervous system."</p>
-                    <h4 class="user-name">@AcidBurn</h4>
-                </div>
-                <div class="testimonial-card">
-                    <div class="user-avatar avatar-3"></div>
-                    <p class="review-text">"A visual masterpiece. Every frame was a work of art."</p>
-                    <h4 class="user-name">@Neo_Anderson</h4>
+                <div class="testimonial-dots">
+                    <button class="dot active" aria-label="Review 1"></button>
+                    <button class="dot" aria-label="Review 2"></button>
+                    <button class="dot" aria-label="Review 3"></button>
+                    <button class="dot" aria-label="Review 4"></button>
+                    <button class="dot" aria-label="Review 5"></button>
+                    <button class="dot" aria-label="Review 6"></button>
                 </div>
             </div>
         </div>
     </section>
 
     <footer id="contact" class="footer">
-        <div class="container fade-in">
+        <div class="container">
             <div class="footer-content">
                 <div class="footer-info">
-                    <h2>NEON ODYSSEY</h2>
+                    <h2>Neon Odyssey</h2>
                     <p>NeoPort City, 2077 Digital District</p>
+                    <p class="footer-detail">Gates open 16:00 NST · Oct 17–19, 2077</p>
                     <div class="socials">
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-discord"></i></a>
-                        <a href="#"><i class="fab fa-twitch"></i></a>
+                        <a href="#" aria-label="Twitter">X</a>
+                        <a href="#" aria-label="Instagram">Ig</a>
+                        <a href="#" aria-label="Discord">Dc</a>
+                        <a href="#" aria-label="Twitch">Tw</a>
                     </div>
                 </div>
                 <div class="footer-links">
-                    <h3>Quick Links</h3>
+                    <h3>Links</h3>
                     <ul>
                         <li><a href="#about">About</a></li>
+                        <li><a href="#lineup">Lineup</a></li>
                         <li><a href="#schedule">Schedule</a></li>
+                        <li><a href="#stages">Stages</a></li>
                         <li><a href="#tickets">Tickets</a></li>
-                        <li><a href="#">Press Kit</a></li>
                     </ul>
                 </div>
                 <div class="newsletter">
-                    <h3>Neural Update</h3>
-                    <p>Subscribe for direct data downloads.</p>
+                    <h3>Stay updated</h3>
+                    <p class="newsletter-desc">Lineup drops, ticket alerts, and volunteer calls — straight to your inbox.</p>
                     <form class="news-form">
-                        <input type="email" placeholder="Enter your email">
-                        <button type="submit">Join</button>
+                        <input type="email" placeholder="your@email.com" required>
+                        <button type="submit" class="btn btn-primary btn-sm">Join</button>
                     </form>
+                    <p class="form-feedback" aria-live="polite"></p>
                 </div>
             </div>
-            <p class="copyright">&copy; 2077 Neon Odyssey. System Online.</p>
+            <p class="copyright">&copy; 2077 Neon Odyssey · All signals reserved</p>
         </div>
     </footer>
 
-    <!-- Payment Modal -->
-    <div id="paymentModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <div class="modal-header">
-                <h2>Secure Transaction</h2>
-                <p id="selectedTicket">Ticket Type</p>
+    <div id="galleryLightbox" class="lightbox" aria-hidden="true">
+        <div class="lightbox-backdrop"></div>
+        <div class="lightbox-content">
+            <button class="lightbox-close" aria-label="Close">&times;</button>
+            <div class="lightbox-visual">
+                <img src="" alt="">
             </div>
-            <div class="modal-body">
-                <form id="paymentForm">
-                    <div class="form-group">
-                        <label>Full Name</label>
-                        <input type="text" required placeholder="John Doe">
-                    </div>
-                    <div class="form-group">
-                        <label>Neural Link ID (Email)</label>
-                        <input type="email" required placeholder="john@cyber.net">
-                    </div>
-                    <div class="form-group">
-                        <label>Credit Chips</label>
-                        <div class="card-input-wrapper">
-                            <input type="text" placeholder="0000 0000 0000 0000" maxlength="19">
-                            <i class="fas fa-credit-card"></i>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group half">
-                            <label>Exp</label>
-                            <input type="text" placeholder="MM/YY" maxlength="5">
-                        </div>
-                        <div class="form-group half">
-                            <label>CVC</label>
-                            <input type="text" placeholder="123" maxlength="3">
-                        </div>
-                    </div>
-                    <div class="total-row">
-                        <span>Total:</span>
-                        <span id="modalPrice" class="neon-text">$0.00</span>
-                    </div>
-                    <button type="submit" class="pay-btn">
-                        <span class="btn-text">CONFIRM PAYMENT</span>
-                        <div class="loader"></div>
-                    </button>
-                </form>
-            </div>
+            <p class="lightbox-title"></p>
         </div>
     </div>
+
+    <div id="paymentModal" class="modal" aria-hidden="true">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <button class="close-modal" aria-label="Close">&times;</button>
+            <div class="modal-header">
+                <h2>Secure checkout</h2>
+                <p id="selectedTicket">Ticket Type</p>
+            </div>
+            <form id="paymentForm">
+                <div class="form-group">
+                    <label>Full name</label>
+                    <input type="text" required placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" required placeholder="john@cyber.net">
+                </div>
+                <div class="form-group">
+                    <label>Card number</label>
+                    <input type="text" placeholder="0000 0000 0000 0000" maxlength="19" inputmode="numeric">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Exp</label>
+                        <input type="text" placeholder="MM/YY" maxlength="5">
+                    </div>
+                    <div class="form-group">
+                        <label>CVC</label>
+                        <input type="text" placeholder="123" maxlength="3" inputmode="numeric">
+                    </div>
+                </div>
+                <div class="total-row">
+                    <span>Total</span>
+                    <span id="modalPrice">$0.00</span>
+                </div>
+                <button type="submit" class="btn btn-primary pay-btn">
+                    <span class="btn-text">Confirm payment</span>
+                    <span class="loader"></span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="toast" aria-live="polite"></div>
 
     <script src="script.js"></script>
 </body>
