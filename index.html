@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neon Odyssey 2077</title>
+    <meta name="theme-color" content="#08090d">
+    <meta name="description" content="Three days. Twelve stages. Fifty artists. Enter Neon Odyssey, NeoPort City's immersive cyber-art and music festival.">
+    <meta property="og:title" content="Neon Odyssey 2077 — Enter the signal">
+    <meta property="og:description" content="Where sound, code and light collide. Three days of music and immersive art in NeoPort City.">
+    <meta property="og:type" content="website">
+    <title>Neon Odyssey 2077 — Enter the signal</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,21 +36,27 @@
 
     <header id="hero" class="hero-section">
         <img class="hero-bg" src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=1920&q=80" alt="" aria-hidden="true" loading="eager">
+        <canvas class="hero-particles" aria-hidden="true"></canvas>
         <div class="hero-overlay" aria-hidden="true"></div>
         <div class="hero-orb" aria-hidden="true"></div>
         <div class="hero-content reveal">
-            <p class="hero-eyebrow">International Cyber Art & Music Festival</p>
+            <p class="hero-eyebrow"><span class="signal-dot" aria-hidden="true"></span> International Cyber Art & Music Festival</p>
             <h1>Neon Odyssey<br><span class="accent">2077</span></h1>
             <p class="hero-desc">Three days. Twelve stages. Fifty artists. Where sound, code and light collide to create unforgettable digital experiences in the heart of NeoPort City.</p>
             <div class="hero-meta">
-                <span>Oct 17–19, 2077</span>
+                <span><span class="meta-icon" aria-hidden="true">◷</span> Oct 17–19, 2077</span>
                 <span aria-hidden="true">·</span>
-                <span>NeoPort Digital District</span>
+                <span><span class="meta-icon" aria-hidden="true">⌖</span> NeoPort Digital District</span>
             </div>
             <div class="hero-buttons">
                 <a href="#tickets" class="btn btn-primary magnetic">Get tickets</a>
                 <a href="#schedule" class="btn btn-ghost magnetic">View schedule</a>
             </div>
+        </div>
+        <div class="hero-signal" aria-hidden="true">
+            <span class="signal-label">TRANSMISSION LIVE</span>
+            <span class="signal-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+            <span class="signal-caption">NEOPORT · 48H SIGNAL</span>
         </div>
         <a href="#about" class="scroll-hint" aria-label="Scroll down">
             <span>Scroll</span>

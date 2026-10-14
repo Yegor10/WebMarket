@@ -1,17 +1,17 @@
-# Neon Odyssey 2077 - Cyberpunk Festival Website
+# Neon Odyssey 2077 - Immersive Festival Website
 
-A fully responsive, immersive landing page for a fictional cyber-art and music festival. This project demonstrates modern frontend development techniques using pure HTML, CSS, and JavaScript, focusing on aesthetic UI/UX and interactive elements.
+A responsive landing page for a fictional cyber-art and music festival. It is built with plain HTML, CSS, and JavaScript, with no animation libraries or framework dependencies.
 
 ## 🚀 Project Overview
 
-**Neon Odyssey** is designed to transport the user into a futuristic setting. It features a dark, high-contrast "cyberpunk" aesthetic with neon glowing accents, glitch effects, and smooth animations. The site is built to be performant and responsive across all device sizes.
+**Neon Odyssey** is designed to transport the user into a futuristic setting. It features a dark, high-contrast aesthetic with neon accents, cinematic motion, and responsive interactive elements.
 
 ### 🌟 Key Features
 
 1.  **Immersive Hero Section:**
-    *   Custom "Glitch" text effect using CSS clip-path animations.
-    *   Animated background grids and radial gradients.
-    *   Scroll indicator animation.
+    *   Interactive particle network rendered with Canvas 2D.
+    *   Animated orbital rings, cinematic background drift, and a live signal meter.
+    *   Staggered entrance motion and pointer-responsive lighting.
 
 2.  **Interactive UI Elements:**
     *   **Tabs System:** A functional schedule section that switches content between "Day 1" and "Day 2" without reloading the page.
@@ -25,16 +25,17 @@ A fully responsive, immersive landing page for a fictional cyber-art and music f
 
 4.  **Animations:**
     *   **Scroll Reveal:** Sections fade in and move up as the user scrolls down (using the Intersection Observer API).
-    *   **Hover Effects:** Cards lift up and glow brighter when hovered.
+    *   **Micro-interactions:** Magnetic buttons, tilt cards, animated counters, image zoom, and staggered card entrances.
+    *   **Accessibility:** Respects reduced-motion preferences and provides visible keyboard focus.
 
 ## 🛠️ Tech Stack
 
 *   **HTML5:** Semantic structure.
 *   **CSS3:** Custom properties (variables), Keyframe animations, Media Queries for responsiveness.
-*   **JavaScript (ES6+):** DOM manipulation, Intersection Observer, Event handling (no external frameworks used).
+* **JavaScript (ES6+):** DOM manipulation, Intersection Observer, Canvas 2D particles, and event handling.
 *   **Assets:**
-    *   Fonts: *Orbitron* (Headings) and *Rajdhani* (Body) from Google Fonts.
-    *   Icons: *Font Awesome* 6.4.0.
+    *   Fonts: *Space Grotesk* (Headings) and *Inter* (Body) from Google Fonts.
+    *   Festival photography: Unsplash.
 
 ## 📂 File Structure
 
@@ -47,21 +48,11 @@ A fully responsive, immersive landing page for a fictional cyber-art and music f
 └── README.md       # Project documentation
 ```
 
-## 💻 Code Highlights
+## 🎬 Animation Approach
 
-### The Glitch Effect (CSS)
-The main title uses a pseudo-element technique with `clip-path` to create the jittery distortion effect without needing JavaScript or images.
+All interface animations are implemented directly with CSS keyframes/transitions and native JavaScript APIs. The canvas particle field is drawn with Canvas 2D and `requestAnimationFrame`; there are no animation libraries such as GSAP or Framer Motion.
 
-```css
-.glitch::before {
-    content: attr(data-text);
-    clip: rect(24px, 550px, 90px, 0);
-    animation: glitch-anim-2 3s infinite linear alternate-reverse;
-}
-```
-
-### Scroll Animations (JavaScript)
-We use the `IntersectionObserver` to detect when elements enter the viewport, triggering the `.visible` class which handles the fade-in CSS transition.
+Scroll reveals and count-up statistics use the native Intersection Observer API:
 
 ```javascript
 const observer = new IntersectionObserver((entries) => {
@@ -88,5 +79,4 @@ The site adapts to mobile devices (max-width: 768px) by:
 
 ---
 *Created for the WebMarket Project.*
-
 

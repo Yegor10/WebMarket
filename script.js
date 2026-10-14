@@ -120,6 +120,94 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Cursor glow & hero orb parallax ---
     const cursorGlow = document.querySelector('.cursor-glow');
     const heroOrb = document.querySelector('.hero-orb');
+    const particleCanvas = document.querySelector('.hero-particles');
+    const particleContext = particleCanvas?.getContext('2d');
+    const hero = document.querySelector('.hero-section');
+
+    if (particleCanvas && particleContext && hero) {
+        const pointer = { x: -1000, y: -1000 };
+        let particles = [];
+        let canvasWidth = 0;
+        let canvasHeight = 0;
+        let particleFrame = 0;
+
+        const resizeParticles = () => {
+            cancelAnimationFrame(particleFrame);
+            const bounds = hero.getBoundingClientRect();
+            const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+            canvasWidth = bounds.width;
+            canvasHeight = bounds.height;
+            particleCanvas.width = Math.round(canvasWidth * pixelRatio);
+            particleCanvas.height = Math.round(canvasHeight * pixelRatio);
+            particleContext.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+
+            const count = Math.min(76, Math.max(38, Math.round((canvasWidth * canvasHeight) / 24000)));
+            particles = Array.from({ length: count }, () => ({
+                x: Math.random() * canvasWidth,
+                y: Math.random() * canvasHeight,
+                radius: Math.random() * 1.4 + 0.45,
+                vx: (Math.random() - 0.5) * 0.24,
+                vy: (Math.random() - 0.5) * 0.24,
+                alpha: Math.random() * 0.5 + 0.2
+            }));
+            drawParticles();
+        };
+
+        const drawParticles = () => {
+            particleContext.clearRect(0, 0, canvasWidth, canvasHeight);
+            particles.forEach((particle, index) => {
+                if (!prefersReducedMotion) {
+                    particle.x += particle.vx;
+                    particle.y += particle.vy;
+                    if (particle.x < 0 || particle.x > canvasWidth) particle.vx *= -1;
+                    if (particle.y < 0 || particle.y > canvasHeight) particle.vy *= -1;
+                }
+
+                const pointerDistance = Math.hypot(particle.x - pointer.x, particle.y - pointer.y);
+                particleContext.beginPath();
+                particleContext.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+                particleContext.fillStyle = `rgba(176, 255, 238, ${particle.alpha + (pointerDistance < 150 ? 0.35 : 0)})`;
+                particleContext.fill();
+
+                for (let next = index + 1; next < particles.length; next += 1) {
+                    const other = particles[next];
+                    const distance = Math.hypot(particle.x - other.x, particle.y - other.y);
+                    if (distance > 115) continue;
+
+                    particleContext.beginPath();
+                    particleContext.moveTo(particle.x, particle.y);
+                    particleContext.lineTo(other.x, other.y);
+                    particleContext.strokeStyle = `rgba(114, 245, 209, ${(1 - distance / 115) * 0.16})`;
+                    particleContext.lineWidth = 0.7;
+                    particleContext.stroke();
+                }
+            });
+
+            if (!prefersReducedMotion && !document.hidden) {
+                particleFrame = requestAnimationFrame(drawParticles);
+            }
+        };
+
+        hero.addEventListener('pointermove', (event) => {
+            const bounds = hero.getBoundingClientRect();
+            pointer.x = event.clientX - bounds.left;
+            pointer.y = event.clientY - bounds.top;
+        }, { passive: true });
+        hero.addEventListener('pointerleave', () => {
+            pointer.x = -1000;
+            pointer.y = -1000;
+        }, { passive: true });
+        window.addEventListener('resize', resizeParticles, { passive: true });
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                cancelAnimationFrame(particleFrame);
+            } else if (!prefersReducedMotion) {
+                drawParticles();
+            }
+        });
+
+        resizeParticles();
+    }
 
     if (hasFinePointer && !prefersReducedMotion) {
         let mouseX = 0;
